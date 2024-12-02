@@ -1,7 +1,9 @@
 using System.IO.Compression;
 using Hydro.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Plunger.Data;
@@ -17,6 +19,7 @@ Log.Logger = new LoggerConfiguration()
     )
     .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
     .WriteTo.Console()
+    .Enrich.FromLogContext()
     .CreateLogger();
 
 builder.Host.UseSerilog(dispose: true);
@@ -38,9 +41,10 @@ builder.Services.AddWebOptimizer(pipeline =>
     var jsFiles = Directory
         .GetFiles("wwwroot/lib", "*.js", SearchOption.AllDirectories)
         .Where(file => !excludeFilters.Any(filter => filter(file)))
-        .Select(file => file.Replace("wwwroot", "").Replace("\\", "/"));
+        .Select(file => file.Replace("wwwroot", "").Replace("\\", "/"))
+        .ToArray();
 
-    pipeline.AddJavaScriptBundle("~/bundles/js/scripts", jsFiles.ToArray());
+    pipeline.AddJavaScriptBundle("~/bundles/js/scripts", jsFiles);
 });
 builder.Services.AddHttpLogging(logging =>
 {
@@ -55,8 +59,34 @@ builder.Services.AddAntiforgery();
 builder.Services.AddRazorPages();
 builder.Services.AddHydro(options => options.AntiforgeryTokenEnabled = true);
 builder.Services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo("../"));
+builder
+    .Services.AddIdentityCore<PlungerUser>()
+    .AddEntityFrameworkStores<AuthDbContext>()
+    .AddSignInManager();
+builder
+    .Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+        options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+    })
+    .AddBearerToken()
+    .AddCookie(
+        IdentityConstants.ApplicationScheme,
+        options =>
+        {
+            options.LoginPath = "/account/login";
+            options.LogoutPath = "/account/logout";
+            options.AccessDeniedPath = "/account/denied";
+            options.ReturnUrlParameter = "returnUrl";
+            options.Events = new CookieAuthenticationEvents
+            {
+                OnValidatePrincipal = SecurityStampValidator.ValidatePrincipalAsync,
+            };
+        }
+    )
+    .AddExternalCookie();
 builder.Services.AddAuthorization();
-builder.Services.AddIdentity<PlungerUser, PlungerRole>().AddEntityFrameworkStores<AuthDbContext>();
 builder.Services.AddResponseCompression(options => options.EnableForHttps = true);
 builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
     options.Level = CompressionLevel.Optimal
@@ -74,8 +104,6 @@ var app = builder.Build();
 app.UseWebOptimizer();
 if (app.Environment.IsProduction())
 {
-    // Configure the HTTP request pipeline.
-    app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
     app.UseResponseCompression();

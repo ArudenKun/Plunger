@@ -7,7 +7,17 @@ public class ToastButton : HydroComponent
 {
     public void ShowToast()
     {
-        var rand = Random.Shared.Next(0, 2);
-        DispatchGlobal(new ShowToast("Test Header", "This is a toast message", (ToastType)rand));
+        var type = Random.Shared.Next(0, 2);
+        var placement = Random.Shared.Next(0, 6);
+        var duration = Random.Shared.Next(1, 10);
+        DispatchGlobal(
+            new ShowToast(
+                "Test Header",
+                "This is a toast message",
+                (ToastType)type,
+                (ToastPlacement)placement,
+                TimeSpan.FromSeconds(duration)
+            )
+        );
     }
 }

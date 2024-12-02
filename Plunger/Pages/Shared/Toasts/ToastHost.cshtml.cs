@@ -1,5 +1,7 @@
-﻿using Hydro;
+﻿using Humanizer;
+using Hydro;
 using JetBrains.Annotations;
+using Plunger.Core.Case;
 
 namespace Plunger.Pages.Shared.Toasts;
 
@@ -18,22 +20,13 @@ public class ToastHost : HydroComponent
 
     private void Handle(ShowToast data)
     {
-        // ToastsList.Add(
-        //     new Toast(
-        //         Id: CreateGuid(),
-        //         Header: data.Header,
-        //         Message: data.Message,
-        //         Type: data.Type,
-        //         Placement: data.Placement,
-        //         Duration: data.Duration == default ? DefaultToastDuration : data.Duration
-        //     )
-        // );
         Client.ExecuteJs(
             $$"""
-            iziModal.
-            iziToast.info({
+            iziToast.{{data.Type.Humanize().ToLower()}}({
                 title: '{{data.Header}}',
-                message: '{{data.Message}}'
+                message: '{{data.Message}}',
+                position: '{{data.Placement.Humanize().ToCamelCase()}}',
+                timeout: '{{data.Duration.TotalMilliseconds}}'
             });
             """
         );
