@@ -1,0 +1,19 @@
+﻿@{
+	Layout = "_LayoutBase";
+}
+<nav class="navbar bg-base-100 shadow-lg">
+	<div class="flex-1">
+		<a class="btn btn-ghost normal-case text-xl" href="/">Plunger</a>
+	</div>
+	<div class="flex-none">
+		<label class="swap swap-rotate">
+			<input type="checkbox" class="theme-controller" value="synthwave" onclick="switchTheme()"/>
+			<i class="bi bi-sun-fill swap-on text-3xl"></i>
+			<i class="bi bi-moon-fill swap-off text-3xl"></i>
+		</label>
+	</div>
+</nav>
+<main>
+	@RenderBody()
+</main>
+@await RenderSectionAsync("Scripts", false)

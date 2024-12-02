@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="hydro-config"/>
+    <title>@ViewData["Title"]</title>
+    @* ReSharper disable Html.PathError *@
+    <link rel="stylesheet" href="~/bundles/css/styles"/>
+    @* ReSharper restore Html.PathError *@
+    <script type="importmap"></script>
+    @* ReSharper disable Html.PathError *@
+    <script src="~/bundles/js/scripts/preload"></script>
+    @* ReSharper restore Html.PathError *@
+    @* ReSharper disable Html.PathError *@
+    <script defer src="~/hydro/hydro.js" asp-append-version="true"></script>
+    @* ReSharper restore Html.PathError *@
+    @* ReSharper disable Html.PathError *@
+    <script defer src="~/hydro/alpine.js" asp-append-version="true"></script>
+    @* ReSharper restore Html.PathError *@
+</head>
+<body class="bg-base-200 min-h-screen flex flex-col">
+@RenderBody()
+<toast-host/>
+@* ReSharper disable Html.PathError *@
+<script src="~/bundles/js/scripts"></script>
+@* ReSharper restore Html.PathError *@
+</body>
+</html>
