@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Plunger.Data;
 using Plunger.Middlewares;
+using Plunger.Services.Hosted;
 using Serilog;
 using Serilog.Events;
+using WebOptimizer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,40 +20,39 @@ Log.Logger = new LoggerConfiguration()
         builder.Environment.IsDevelopment() ? LogEventLevel.Debug : LogEventLevel.Information
     )
     .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
-    .WriteTo.Console()
+    .WriteTo.Console(
+        outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3} {ClassName}] {Message:lj}{NewLine}{Exception}"
+    )
     .Enrich.FromLogContext()
+    .Enrich.WithClassName()
     .CreateLogger();
 
 builder.Host.UseSerilog(dispose: true);
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddHostedService<TailwindService>();
+}
+
 builder.Services.AddWebOptimizer(pipeline =>
 {
-    pipeline.AddCssBundle("~/bundles/css/styles", "/lib/**/*.css");
+    pipeline
+        .AddCssBundle("~/bundles/css/styles", "/**/*.css")
+        .ExcludeFiles("/**/*.min.css", "/**/tailwind.source.css");
     pipeline.AddJavaScriptBundle(
         "~/bundles/js/scripts/preload",
         "/lib/jquery/jquery.js",
         "/js/preload/**/*.js"
     );
-
-    var excludeFilters = new List<Func<string, bool>>
-    {
-        file => Path.GetFileName(file).StartsWith("jquery", StringComparison.OrdinalIgnoreCase),
-        // file => Path.GetFileName(file).EndsWith(".min.js", StringComparison.OrdinalIgnoreCase)
-    };
-
-    var jsFiles = Directory
-        .GetFiles("wwwroot/lib", "*.js", SearchOption.AllDirectories)
-        .Where(file => !excludeFilters.Any(filter => filter(file)))
-        .Select(file => file.Replace("wwwroot", "").Replace("\\", "/"))
-        .ToArray();
-
-    pipeline.AddJavaScriptBundle("~/bundles/js/scripts", jsFiles);
+    pipeline
+        .AddJavaScriptBundle("~/bundles/js/scripts", "/lib/**/*.js")
+        .ExcludeFiles("/**/*.min.js", "/**/jquery*.js");
 });
 builder.Services.AddHttpLogging(logging =>
 {
     logging.LoggingFields = HttpLoggingFields.Duration;
     logging.CombineLogs = true;
 });
-
 builder.Services.AddDbContext<AuthDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
 );

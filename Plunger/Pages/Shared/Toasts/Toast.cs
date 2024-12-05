@@ -4,7 +4,7 @@ namespace Plunger.Pages.Shared.Toasts;
 
 [AutoInterface(Name = "IToastParameters")]
 public record ShowToast(
-    string Header,
+    string Title,
     string Message,
     ToastType Type = ToastType.Success,
     ToastPlacement Placement = ToastPlacement.TopRight,
@@ -13,9 +13,9 @@ public record ShowToast(
 
 public record Toast(
     string Id,
-    string Header,
+    string Title,
     string Message,
     ToastType Type,
     ToastPlacement Placement,
     TimeSpan Duration
-) : ShowToast(Header, Message, Type, Placement, Duration);
+) : ShowToast(Title, Message, Type, Placement, Duration);

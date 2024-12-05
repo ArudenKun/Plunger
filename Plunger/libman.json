@@ -6,27 +6,19 @@
             "library": "jquery@3.7.1",
             "destination": "wwwroot/lib/jquery/",
             "files": [
-                "jquery.js"
-            ]
-        },
-        {
-            "library": "bootstrap@5.3.3",
-            "destination": "wwwroot/lib/bootstrap/",
-            "files": [
-                "js/bootstrap.bundle.js",
-                "js/bootstrap.bundle.js.map",
-                "css/bootstrap.css",
-                "css/bootstrap.css.map"
+                "jquery.js",
+                "jquery.min.js",
+                "jquery.min.map"
             ]
         },
         {
             "library": "bootstrap-icons@1.11.3",
             "destination": "wwwroot/lib/bootstrap-icons/",
             "files": [
-                "bootstrap-icons.svg",
                 "font/fonts/bootstrap-icons.woff",
                 "font/fonts/bootstrap-icons.woff2",
                 "font/bootstrap-icons.css",
+                "font/bootstrap-icons.min.css",
                 "icons/0-circle-fill.svg",
                 "icons/0-circle.svg",
                 "icons/0-square-fill.svg",
@@ -2080,21 +2072,22 @@
             ]
         },
         {
-            "provider": "cdnjs",
             "library": "izitoast@1.4.0",
             "destination": "wwwroot/lib/izitoast/",
             "files": [
                 "css/iziToast.css",
-                "js/iziToast.js"
+                "css/iziToast.min.css",
+                "js/iziToast.js",
+                "js/iziToast.min.js"
             ]
         },
         {
             "provider": "cdnjs",
-            "library": "izimodal@1.6.1",
-            "destination": "wwwroot/lib/izimodal/",
+            "library": "sweetalert2@11.14.5",
+            "destination": "wwwroot/lib/sweetalert2/",
             "files": [
-                "js/iziModal.js",
-                "css/iziModal.css"
+                "sweetalert2.all.js",
+                "sweetalert2.all.min.js"
             ]
         }
     ]

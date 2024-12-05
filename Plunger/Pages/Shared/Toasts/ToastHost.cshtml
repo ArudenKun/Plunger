@@ -1,6 +1,6 @@
 ﻿@model ToastHost
 
-<div class="toast-container top-0 end-0 p-3">
+<span>
     @for (var index = 0; index < Model.ToastsList.Count; index++)
     {
         var (id, title, message, toastType, _, duration) = Model.ToastsList[index];
@@ -21,6 +21,7 @@
                 headerIconClass = "bi-check-circle";
                 break;
         }
+
         <div key="@($"toast-{index}")" id="@($"toast-{id}")"
              class="toast align-items-center @bgClass border-0 show"
              role="alert" aria-live="assertive" aria-atomic="true">
@@ -42,4 +43,4 @@
             </div>
         </div>
     }
-</div>
+</span>

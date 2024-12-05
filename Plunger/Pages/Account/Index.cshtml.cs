@@ -6,5 +6,8 @@ namespace Plunger.Pages.Account;
 [Authorize]
 public class Index : PageModel
 {
-    public void OnGet() { }
+    // public async Task<IActionResult> OnPostAsync()
+    // {
+    //     return new PageResult();
+    // }
 }

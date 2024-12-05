@@ -5,13 +5,17 @@ using Plunger.Core;
 
 namespace Plunger.Middlewares;
 
-public class HydroExceptionMiddleware(RequestDelegate next)
+public class HydroExceptionMiddleware
 {
+    private readonly RequestDelegate _next;
+
+    public HydroExceptionMiddleware(RequestDelegate next) => _next = next;
+
     public async Task InvokeAsync(HttpContext httpContext)
     {
         if (!httpContext.IsHydro())
         {
-            await next(httpContext);
+            await _next(httpContext);
             return;
         }
 

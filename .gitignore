@@ -19,6 +19,7 @@ obj/
 
 # Common node modules locations
 /node_modules
+bun.lockb
 /wwwroot/node_modules
 
 ### ASPNETCore template

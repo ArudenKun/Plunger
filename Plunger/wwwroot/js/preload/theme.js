@@ -4,14 +4,14 @@
 (function () {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
-        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        document.documentElement.setAttribute('data-theme', savedTheme);
     } else {
-        const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+        const currentTheme = document.documentElement.getAttribute('data-theme');
         if (!currentTheme) {
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.setAttribute('data-bs-theme', 'dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
             } else {
-                document.documentElement.setAttribute('data-bs-theme', 'light');
+                document.documentElement.setAttribute('data-theme', 'light');
             }
         }
     }
@@ -27,6 +27,6 @@ function switchTheme() {
         }
     }
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-bs-theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
 }

@@ -23,11 +23,15 @@
 
     <ItemGroup>
         <Folder Include="Pages\Account\Components\"/>
-        <Folder Include="Services\Hosted\"/>
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="Pages\Shared\Toasts\Components\Toast.cshtml" />
+        <UpToDateCheckBuilt Include="wwwroot/css/tailwind.source.css" Set="Css"/>
+        <UpToDateCheckBuilt Include="../tailwind.config.js" Set="Css" Visible="false"/>
     </ItemGroup>
+
+    <Target Name="BuildTailwind" BeforeTargets="Build">
+        <Exec Command="bun run css:build" WorkingDirectory="../"/>
+    </Target>
 
 </Project>

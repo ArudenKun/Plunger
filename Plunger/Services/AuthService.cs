@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoInterfaceAttributes;
+using Microsoft.AspNetCore.Identity;
 using Plunger.Data;
 
 namespace Plunger.Services;
 
-public class AuthService
+[AutoInterface]
+public class AuthService : IAuthService
 {
     private readonly SignInManager<PlungerUser> _signInManager;
 

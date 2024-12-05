@@ -1,47 +1,41 @@
 ﻿@page
 @model Plunger.Pages.Account.Login
 
-@{
-    Layout = "Shared/_Layout";
-}
-
-<div class="flex-1 flex items-center justify-center">
-    <div class="flex flex-col gap-4 rounded-box bg-base-200 mt-2 p-6 max-w-md w-full">
-        <h1 class="text-3xl font-bold self-center">Log in</h1>
-        <span class="self-center">
-        Don't have an account?
-        <a class="link link-secondary" href="@Url.Page("Register")">Register</a>
-    </span>
-
-        <a class="btn btn-neutral">
+<div class="d-flex flex-grow-1 align-items-center justify-content-center">
+    <div class="d-flex flex-column gap-4 rounded bg-light mt-2 p-4 mx-auto" style="max-width: 28rem; width: 100%;">
+        <h1 class="text-center fw-bold">Log in</h1>
+        <span class="text-center">
+    Don't have an account?
+    <a class="text-decoration-underline text-secondary" href="@Url.Page("Register")">Register</a>
+        </span>
+        <a class="btn btn-secondary d-flex align-items-center justify-content-center gap-2">
             <i class="fa-brands fa-google text-primary"></i>
             Log in with Google
         </a>
 
-        <div class="divider">OR</div>
-
-        <label class="form-control">
-            <div class="label">
-                <span class="label-text">Email</span>
-            </div>
-            <input class="input input-bordered"/>
-        </label>
-
-        <label class="form-control">
-            <div class="label">
-                <span class="label-text">Password</span>
-                <a class="label-text link link-accent">Forgot password?</a>
-            </div>
-            <input type="password" class="input input-bordered"/>
-        </label>
-
-        <div class="form-control">
-            <label class="cursor-pointer label self-start gap-2">
-                <input type="checkbox" class="checkbox"/>
-                <span class="label-text">Remember me</span>
-            </label>
+        <div class="text-center position-relative my-3">
+            <hr class="m-0"/>
+            <span class="position-absolute top-50 start-50 translate-middle bg-white px-2">OR</span>
         </div>
 
-        <button class="btn btn-primary">Log in</button>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" type="email" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label d-flex justify-content-between">
+                <span>Password</span>
+                <a class="text-decoration-none text-primary" href="#">Forgot password?</a>
+            </label>
+            <input id="password" type="password" class="form-control"/>
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="remember"/>
+            <label for="remember" class="form-check-label">Remember me</label>
+        </div>
+
+        <button class="btn btn-primary w-100">Log in</button>
     </div>
 </div>

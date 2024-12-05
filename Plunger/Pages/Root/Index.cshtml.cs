@@ -11,6 +11,8 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
+    public void OnGet() { }
+
     public void ShowToast()
     {
         var rand = Random.Shared.Next(0, 5);

@@ -7,6 +7,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{E6293F77-3417-4CDF-883B-741282C479BB}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		package.json = package.json
+		tailwind.config.js = tailwind.config.js
 	EndProjectSection
 EndProject
 Global

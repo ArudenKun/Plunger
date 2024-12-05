@@ -23,7 +23,7 @@ public class ToastHost : HydroComponent
         Client.ExecuteJs(
             $$"""
             iziToast.{{data.Type.Humanize().ToLower()}}({
-                title: '{{data.Header}}',
+                title: '{{data.Title}}',
                 message: '{{data.Message}}',
                 position: '{{data.Placement.Humanize().ToCamelCase()}}',
                 timeout: '{{data.Duration.TotalMilliseconds}}'
@@ -36,7 +36,7 @@ public class ToastHost : HydroComponent
         ToastsList.Add(
             new Toast(
                 Id: CreateGuid(),
-                Header: data.Data as string ?? "Error",
+                Title: data.Data as string ?? "Error",
                 Message: data.Message
                     ?? "An unhandled hydro error occurred, please try again later.",
                 Type: ToastType.Error,
