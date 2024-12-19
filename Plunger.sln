@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B3BF62EC-488D-478E-A051-03F985B92B57}"
+	ProjectSection(SolutionItems) = preProject
+		src\.gitignore = src\.gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{3375FC92-CB61-4EE2-9B52-EDF29036CA41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{1DFA03F0-F695-40DC-A28D-234A939F6F9C}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plunger.Web", "src\Plunger.Web\Plunger.Web.csproj", "{5E867D24-F934-4771-B532-8859E834AFDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5E867D24-F934-4771-B532-8859E834AFDD} = {B3BF62EC-488D-478E-A051-03F985B92B57}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E867D24-F934-4771-B532-8859E834AFDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E867D24-F934-4771-B532-8859E834AFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E867D24-F934-4771-B532-8859E834AFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E867D24-F934-4771-B532-8859E834AFDD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
